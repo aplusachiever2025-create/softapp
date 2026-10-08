@@ -23,7 +23,7 @@
 <div id="app">
   <div class="top">
     <button class="btn" id="back" aria-label="返回">‹</button>
-    <div class="brand">Tutor SmartMatch</div>
+    <div class="brand" id="brand" title="Tutor SmartMatch">Tutor SmartMatch</div>
     <button class="btn" id="refresh">刷新</button>
   </div>
   <div class="frame">
@@ -38,16 +38,32 @@
 </div>
 <script>
 const TARGET="https://aplusachiever2025-create.github.io/app/";
+const ADMIN=TARGET+"admin.html";
+let adminTapCount=0;
+let adminTapTimer=null;
 let lastHistoryUrl = TARGET;
 
 const frame=document.getElementById("site"),loading=document.getElementById("loading"),error=document.getElementById("error");
+function openAdmin(){
+  loading.classList.remove("hidden"); error.classList.remove("show");
+  frame.src=ADMIN + "?app_shell=1";
+}
+document.getElementById("brand").addEventListener("click",()=>{
+  adminTapCount++;
+  clearTimeout(adminTapTimer);
+  adminTapTimer=setTimeout(()=>adminTapCount=0,1800);
+  if(adminTapCount>=5){
+    adminTapCount=0;
+    openAdmin();
+  }
+});
 function openSite(){
   loading.classList.remove("hidden"); error.classList.remove("show");
   frame.src=TARGET + "?app_shell=1";
 }
 frame.addEventListener("load",()=>loading.classList.add("hidden"));
 frame.addEventListener("error",()=>{loading.classList.add("hidden");error.classList.add("show")});
-document.getElementById("refresh").onclick=()=>openSite();
+document.getElementById("refresh").onclick=()=>frame.src.includes("admin.html")?openAdmin():openSite();
 document.getElementById("back").onclick=()=>{
   try {
     if (frame.contentWindow && frame.contentWindow.history.length > 1) frame.contentWindow.history.back();
