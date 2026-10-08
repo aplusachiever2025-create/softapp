@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SG Tutor Match">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>SG Tutor Match</title>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f8fafc}
+    #app{height:100%;display:flex;flex-direction:column}.top{height:56px;padding:0 14px;display:flex;align-items:center;gap:10px;background:#0f172a;color:#fff;flex:none;padding-top:env(safe-area-inset-top)}
+    .brand{font-weight:700;flex:1}.btn{border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:8px 10px;font-size:13px}
+    .frame{position:relative;flex:1;background:#fff}.frame iframe{width:100%;height:100%;border:0;display:block}
+    .loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;z-index:2}.loading.hidden{display:none}
+    .error{display:none;position:absolute;inset:0;padding:40px 24px;text-align:center;background:#fff;z-index:3}.error.show{display:block}
+    .error button{margin-top:16px;border:0;border-radius:10px;padding:11px 18px;background:#0f172a;color:#fff}
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="top">
+    <div class="brand">SG Tutor Match</div>
+    <button class="btn" id="refresh">刷新</button>
+  </div>
+  <div class="frame">
+    <div class="loading" id="loading">正在打开 SG Tutor Match…</div>
+    <div class="error" id="error">
+      <h3>暂时无法连接</h3>
+      <p>请检查网络后重试。</p>
+      <button id="retry">重新连接</button>
+    </div>
+    <iframe id="site" title="SG Tutor Match"></iframe>
+  </div>
+</div>
+<script>
+const TARGET="https://aplusachiever2025-create.github.io/app/";
+const frame=document.getElementById("site"),loading=document.getElementById("loading"),error=document.getElementById("error");
+function openSite(){
+  loading.classList.remove("hidden"); error.classList.remove("show");
+  frame.src=TARGET + "?app_shell=1";
+}
+frame.addEventListener("load",()=>{loading.classList.add("hidden");});
+frame.addEventListener("error",()=>{loading.classList.add("hidden");error.classList.add("show");});
+document.getElementById("refresh").onclick=()=>{try{frame.contentWindow.location.reload()}catch(e){openSite()}};
+document.getElementById("retry").onclick=openSite;
+if("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+openSite();
+</script>
+</body>
+</html>
