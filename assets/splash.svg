@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eefbf3"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#006b3c"/>
+      <stop offset="1" stop-color="#78d500"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <path d="M0 0h1080v170c-270 100-560 120-1080-20Z" fill="url(#green)"/>
+  <text x="540" y="560" text-anchor="middle" font-family="Arial,sans-serif" font-size="112" font-weight="800" fill="#111">APLUS</text>
+  <path d="M230 590h620" stroke="#31a852" stroke-width="16"/>
+  <text x="540" y="670" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" letter-spacing="18" fill="#08783f">ACHIEVER</text>
+  <rect x="170" y="800" width="740" height="150" rx="75" fill="url(#green)"/>
+  <text x="540" y="895" text-anchor="middle" font-family="Arial,sans-serif" font-size="64" font-weight="700" fill="#fff">Tutor SmartMatch</text>
+  <text x="540" y="1035" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" fill="#08783f">Better Tutors • Brighter Future</text>
+  <path d="M180 1330Q540 1090 900 1330L540 1570Z" fill="#fff" stroke="#08783f" stroke-width="18"/>
+  <circle cx="470" cy="1320" r="62" fill="#1687d9"/>
+  <circle cx="610" cy="1285" r="62" fill="#ef4b86"/>
+  <path d="M360 1600Q540 1680 720 1600" fill="none" stroke="#5bcf36" stroke-width="26" stroke-linecap="round"/>
+  <text x="540" y="1740" text-anchor="middle" font-family="Arial,sans-serif" font-size="40" font-weight="600" fill="#08783f">Together for Better Learning</text>
+</svg>
