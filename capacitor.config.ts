@@ -6,6 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'www',
   bundledWebRuntime: false,
   server: {
+    url: 'https://aplusachiever2025-create.github.io/softapp/',
     androidScheme: 'https'
   },
   android: {
