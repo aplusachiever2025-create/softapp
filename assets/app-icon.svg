@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#006b3c"/>
+      <stop offset="1" stop-color="#78d500"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#fff"/>
+  <path d="M92 326 196 112h68l156 214h-72l-32-51H190l-25 51Zm124-111h72l-38-61Z" fill="url(#g)"/>
+  <path d="M116 356h280" stroke="#006b3c" stroke-width="18" stroke-linecap="round"/>
+  <text x="256" y="405" text-anchor="middle" font-family="Arial,sans-serif" font-size="46" font-weight="700" fill="#006b3c">SMARTMATCH</text>
+</svg>
