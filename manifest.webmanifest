@@ -1,0 +1,10 @@
+{
+  "name":"SG Tutor Match",
+  "short_name":"Tutor Match",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#f8fafc",
+  "theme_color":"#0f172a",
+  "orientation":"portrait",
+  "description":"SG Tutor Match mobile app shell"
+}
