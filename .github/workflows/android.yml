@@ -96,7 +96,7 @@ jobs:
           from pathlib import Path
           p=Path("android/app/src/main/res/values/styles.xml")
           p.parent.mkdir(parents=True,exist_ok=True)
-          p.write_text("""<resources><style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar"><item name="android:fontFamily">sans</item><item name="android:colorAccent">#006B3C</item><item name="android:navigationBarColor">#ffffff</item><item name="android:statusBarColor">#006B3C</item></style></resources>""")
+          p.write_text("""<resources><style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar"><item name="android:fontFamily">sans</item><item name="android:colorAccent">#006B3C</item><item name="android:navigationBarColor">#ffffff</item><item name="android:statusBarColor">#006B3C</item></style><style name="AppTheme.NoActionBarLaunch" parent="AppTheme"/></resources>""")
           PY
 
 
