@@ -1,0 +1,9 @@
+{
+  "name":"Tutor SmartMatch",
+  "short_name":"SmartMatch",
+  "start_url":"./",
+  "display":"standalone",
+  "orientation":"portrait",
+  "theme_color":"#08783f",
+  "background_color":"#ffffff"
+}
