@@ -33,6 +33,28 @@ jobs:
       - name: Sync web app
         run: npx cap sync android
 
+      - name: Add Android native navigation helper
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path("android/app/src/main/java/com/aplus/achiever/tutorsmartmatch/MainActivity.java")
+          if not p.exists():
+              p.parent.mkdir(parents=True, exist_ok=True)
+              p.write_text("""package com.aplus.achiever.tutorsmartmatch;
+          
+          import android.os.Bundle;
+          import com.getcapacitor.BridgeActivity;
+          
+          public class MainActivity extends BridgeActivity {
+              @Override
+              public void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+              }
+          }
+          """)
+          PY
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
