@@ -37,6 +37,8 @@
 </div>
 <script>
 const TARGET="https://aplusachiever2025-create.github.io/app/";
+let lastHistoryUrl = TARGET;
+
 const frame=document.getElementById("site"),loading=document.getElementById("loading"),error=document.getElementById("error");
 function openSite(){
   loading.classList.remove("hidden"); error.classList.remove("show");
@@ -46,7 +48,11 @@ frame.addEventListener("load",()=>loading.classList.add("hidden"));
 frame.addEventListener("error",()=>{loading.classList.add("hidden");error.classList.add("show")});
 document.getElementById("refresh").onclick=()=>openSite();
 document.getElementById("retry").onclick=openSite;
+document.addEventListener("backbutton",()=>{ history.back(); });
+window.addEventListener("popstate",()=>{ if(location.href===location.origin+"/") openSite(); });
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden) frame.contentWindow?.postMessage({type:"smartmatch_resume"},"*"); });
 openSite();
+
 </script>
 </body>
 </html>
