@@ -33,6 +33,77 @@ jobs:
       - name: Sync web app
         run: npx cap sync android
 
+      - name: Apply Tutor SmartMatch Android branding and native behavior
+        shell: bash
+        run: |
+          set -e
+          APP=android/app/src/main
+          mkdir -p "$APP/res/drawable" "$APP/res/drawable-anydpi-v26" "$APP/res/mipmap-anydpi-v26"
+          cat > "$APP/res/drawable/ic_smartmatch.xml" <<'XML'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+            <path android:fillColor="#FFFFFF" android:pathData="M0,0h108v108h-108z"/>
+            <path android:fillColor="#006B3C" android:pathData="M18,70L40,24h12l34,46h-16l-7,-11H39l-5,11zM45,47h16l-8,-13z"/>
+            <path android:strokeColor="#78D500" android:strokeWidth="4" android:strokeLineCap="round" android:fillColor="@android:color/transparent" android:pathData="M24,78h60"/>
+          </vector>
+          XML
+          cat > "$APP/res/drawable/splash.xml" <<'XML'
+          <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:drawable="@android:color/white"/>
+            <item android:gravity="center">
+              <shape android:shape="rectangle"><solid android:color="#006B3C"/><corners android:radius="28dp"/></shape>
+            </item>
+          </layer-list>
+          XML
+          cat > "$APP/res/mipmap-anydpi-v26/ic_launcher.xml" <<'XML'
+          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+            <background android:drawable="@android:color/white"/>
+            <foreground android:drawable="@drawable/ic_smartmatch"/>
+          </adaptive-icon>
+          XML
+          cat > "$APP/res/values-smartmatch.xml" <<'XML'
+          <resources><color name="smartmatch_green">#006B3C</color></resources>
+          XML
+          mkdir -p "$APP/java/com/aplus/achiever/tutorsmartmatch"
+          cat > "$APP/java/com/aplus/achiever/tutorsmartmatch/MainActivity.java" <<'JAVA'
+          package com.aplus.achiever.tutorsmartmatch;
+          
+          import android.os.Bundle;
+          import android.webkit.WebResourceRequest;
+          import android.webkit.WebView;
+          import android.webkit.WebViewClient;
+          import android.content.Intent;
+          import android.net.Uri;
+          import com.getcapacitor.BridgeActivity;
+          
+          public class MainActivity extends BridgeActivity {
+            @Override public void onCreate(Bundle state) {
+              super.onCreate(state);
+              getBridge().getWebView().setWebViewClient(new WebViewClient() {
+                @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest req) {
+                  Uri u=req.getUrl();
+                  String s=u.toString();
+                  if (s.startsWith("whatsapp://") || s.startsWith("https://wa.me/") || s.startsWith("https://api.whatsapp.com/")) {
+                    try { startActivity(new Intent(Intent.ACTION_VIEW,u)); } catch(Exception ignored) {}
+                    return true;
+                  }
+                  return false;
+                }
+              });
+            }
+            @Override public void onBackPressed() {
+              WebView w=getBridge().getWebView();
+              if (w.canGoBack()) w.goBack(); else super.onBackPressed();
+            }
+          }
+          JAVA
+          sed -i 's#<application #<application android:theme="@style/AppTheme" #g' "$APP/AndroidManifest.xml" || true
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path("android/app/src/main/res/values/styles.xml")
+          p.parent.mkdir(parents=True,exist_ok=True)
+          p.write_text("""<resources><style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar"><item name="android:fontFamily">sans</item><item name="android:colorAccent">#006B3C</item><item name="android:navigationBarColor">#ffffff</item><item name="android:statusBarColor">#006B3C</item></style></resources>""")
+          PY
+
       - name: Add Android native navigation helper
         shell: bash
         run: |
