@@ -22,6 +22,7 @@
 <body>
 <div id="app">
   <div class="top">
+    <button class="btn" id="back" aria-label="返回">‹</button>
     <div class="brand">Tutor SmartMatch</div>
     <button class="btn" id="refresh">刷新</button>
   </div>
@@ -47,6 +48,12 @@ function openSite(){
 frame.addEventListener("load",()=>loading.classList.add("hidden"));
 frame.addEventListener("error",()=>{loading.classList.add("hidden");error.classList.add("show")});
 document.getElementById("refresh").onclick=()=>openSite();
+document.getElementById("back").onclick=()=>{
+  try {
+    if (frame.contentWindow && frame.contentWindow.history.length > 1) frame.contentWindow.history.back();
+    else window.history.back();
+  } catch(e) { window.history.back(); }
+};
 document.getElementById("retry").onclick=openSite;
 document.addEventListener("backbutton",()=>{ history.back(); });
 window.addEventListener("popstate",()=>{ if(location.href===location.origin+"/") openSite(); });
